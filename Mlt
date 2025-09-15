@@ -1,0 +1,47 @@
+import random
+import time
+from threading import Timer
+
+class TouristDashboard:
+    def __init__(self):
+        self.weather_data = ["Sunny, 32°C", "Cloudy, 28°C", "Rainy, 25°C", "Windy, 30°C"]
+        self.tourist_spots = ["Marina Beach", "Mahabalipuram", "Valluvar Kottam", "Guindy National Park"]
+        self.safety_alerts = ["No alerts", "Heavy rainfall expected", "Traffic congestion near Marina Beach"]
+
+    def update_weather(self):
+        # Simulated weather data (replace with API call)
+        weather = random.choice(self.weather_data)
+        print(f"Current weather: {weather}")
+
+    def update_tourist_spots(self):
+        # Simulated tourist spots (replace with dynamic data)
+        random.shuffle(self.tourist_spots)
+        selected_spots = self.tourist_spots[:3]
+        print(f"Popular Tourist Spots: {', '.join(selected_spots)}")
+
+    def update_safety_alerts(self):
+        # Simulated safety alerts (replace with real-time data)
+        alert = random.choice(self.safety_alerts)
+        print(f"Safety Alert: {alert}")
+
+    def start_real_time_updates(self):
+        def update():
+            self.update_weather()
+            self.update_tourist_spots()
+            self.update_safety_alerts()
+            print("-" * 50)
+            Timer(10, update).start()  # Schedule next update in 10 seconds
+
+        update()
+
+if __name__ == "__main__":
+    # Instantiate and start the dashboard
+    dashboard = TouristDashboard()
+    dashboard.start_real_time_updates()
+
+    # Keep the program running to allow updates to happen
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Dashboard stopped.")
